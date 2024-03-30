@@ -16,6 +16,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @include('layouts.css')
+    @include('layouts.script')
 </head>
 <body>
     <div id="app">
@@ -81,6 +82,5 @@
         </main>
     </div>
 @yield('modales')
-@include('layouts.script')
 </body>
 </html>
