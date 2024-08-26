@@ -8,15 +8,15 @@
 
     function showLoadingModal() {
         $('#loadingModal').modal('show');
-        setTimeout(acortarUrl, 3000); // Wait for 3 seconds before calling the URL shortening function
+        setTimeout(acortarUrl, 3000); // Espera 3 segundos antes de llamar a la función de acortamiento de URL
     }
 
     function acortarUrl(){
         $.ajax({
-            url: '{{ route('urlshortener.acortar-url') }}',
+            url: '{{ secure_url(route('urlshortener.acortar-url')) }}', // Asegúrate de que esta ruta esté actualizada y sea segura
             data: {
                 "url_original": $('#urlInput').val(),
-                '_token': "{{ Session::token() }}"
+                '_token': "{{ csrf_token() }}" // Usar csrf_token() es más seguro y recomendado
             },
             type: 'post',
             success: function (data) {

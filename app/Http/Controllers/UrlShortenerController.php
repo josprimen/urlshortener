@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Url;
-use App\Models\Urls;
-use Carbon\Carbon;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Throwable;
 
 class UrlShortenerController extends Controller
 {
@@ -22,78 +17,51 @@ class UrlShortenerController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public static function routes()
     {
-        Route::group(['prefix' => 'urlshortener', 'as' => 'urlshortener.'], static function () {
+        Route::group(['prefix' => 'u', 'as' => 'urlshortener.'], static function () { // Cambia 'urlshortener' a 'u'
             Route::get('/', [self::class, 'index'])->name('index');
             Route::post('acortar-url', [self::class, 'acortarUrl'])->name('acortar-url');
             Route::get('/{urlcorta}', [self::class, 'getUrl'])->name('getUrl');
-
         });
-
-
     }
 
-
-    public function index(){
+    public function index()
+    {
         return view('urlshortener');
     }
 
-
-
-
-
-
-
-
-
     /**
      * Acorta url o busca la url acortada en db
-     *
      */
     public function acortarUrl(Request $request)
     {
-        try
-        {
+        try {
             // Buscar si existe una URL original en la base de datos
             $url = Url::where('url_original', $request->url_original)->first();
 
             // Si la URL ya está acortada, devolver la URL corta
             if ($url) {
-                return url('/') . '/urlshortener/' . $url->url_corta;
+                return url('/') . '/u/' . $url->url_corta; // Cambia '/urlshortener/' a '/u/'
             }
 
             // Si no existe, generar una URL corta única
             $urlCorta = $this->generateShortUrl();
 
-            // Generar código QR
-            $qrCode = Builder::create()
-                ->writer(new PngWriter())
-                ->data(url('/') . '/urlshortener/' . $urlCorta)
-                ->size(300)
-                ->build();
-
-            // Guardar la imagen del QR en el almacenamiento local
-            $qrPath = 'qrcodes/' . $urlCorta . '.png';
-            Storage::disk('public')->put($qrPath, $qrCode->getString());
-
             // Crear una nueva URL con la URL original, la URL corta generada y la ruta del QR
             $url = Url::create([
                 'url_original' => $request->url_original,
                 'url_corta' => $urlCorta,
-                'qr_path' => $qrPath,
             ]);
 
-            $url_acortada = url('/') . '/urlshortener/' . $urlCorta;
+            $url_acortada = url('/') . '/u/' . $urlCorta; // Cambia '/urlshortener/' a '/u/'
 
             // Devolver la URL corta generada
             return $url_acortada;
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             request()->session()->flash('error', $e);
             return redirect()->back();
@@ -110,14 +78,12 @@ class UrlShortenerController extends Controller
         return $urlCorta;
     }
 
-    public function getUrl($urlcorta){
-        if (isset($urlcorta) && (Url::where('url_corta', $urlcorta)->count() > 0)){
+    public function getUrl($urlcorta)
+    {
+        if (isset($urlcorta) && (Url::where('url_corta', $urlcorta)->count() > 0)) {
             $ruta_original = Url::where('url_corta', $urlcorta)->first()->url_original;
             return redirect()->away($ruta_original);
         }
         return redirect()->route('urlshortener.index');
     }
-
-
-
 }
