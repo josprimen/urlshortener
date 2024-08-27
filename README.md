@@ -1,66 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Proyecto Acortador de URLs
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Español
 
-## About Laravel
+### Descripción
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este proyecto es una aplicación acortadora de URLs construida con Laravel. La aplicación permite a los usuarios acortar URLs largas en URLs más manejables y cortas, que son más fáciles de compartir y recordar. Además, la aplicación genera un código QR para cada URL acortada, permitiendo un acceso rápido mediante escaneo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP 8.2**: La aplicación requiere PHP 8.2 para ejecutarse.
+- **Composer**: Un gestor de dependencias para PHP, utilizado para instalar los paquetes necesarios.
+- **Laravel 9.x**: Un framework PHP moderno utilizado para desarrollar esta aplicación.
+- **Base de Datos**: Se recomienda una base de datos MySQL, pero se puede utilizar cualquier base de datos compatible con Laravel.
 
-## Learning Laravel
+### Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Sigue estos pasos para configurar el proyecto localmente:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clonar el Repositorio**:  
+   `git clone https://github.com/yourusername/url-shortener.git`  
+   `cd url-shortener`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Instalar Dependencias**:  
+   Usa Composer para instalar las dependencias del proyecto.  
+   `composer install`
 
-## Laravel Sponsors
+3. **Configurar el Entorno**:
+    - Copia el archivo `.env.example` para crear tu archivo `.env`.  
+      `cp .env.example .env`
+    - Actualiza el archivo `.env` con tus credenciales de la base de datos y otras configuraciones:  
+      `DB_CONNECTION=mysql`  
+      `DB_HOST=127.0.0.1`  
+      `DB_PORT=3306`  
+      `DB_DATABASE=nombre_de_tu_base_de_datos`  
+      `DB_USERNAME=tu_usuario`  
+      `DB_PASSWORD=tu_contraseña`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Generar Clave de la Aplicación**:  
+   `php artisan key:generate`
 
-### Premium Partners
+5. **Ejecutar Migraciones**:  
+   Migra la base de datos para configurar las tablas necesarias.  
+   `php artisan migrate`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+6. **Servir la Aplicación**:  
+   Inicia el servidor de desarrollo local.  
+   `php artisan serve`
 
-## Contributing
+7. **Acceder a la Aplicación**:  
+   Abre tu navegador y ve a `http://localhost:8000`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Pasos Adicionales
 
-## Code of Conduct
+- **Cacheo**: Puedes optimizar el rendimiento cacheando las rutas y archivos de configuración.  
+  `php artisan config:cache`  
+  `php artisan route:cache`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Enlace de Almacenamiento**: Si tienes subidas de archivos, asegúrate de crear un enlace simbólico al almacenamiento.  
+  `php artisan storage:link`
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## English
 
-## License
+### Description
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is a URL shortener application built with Laravel. The application allows users to shorten long URLs into more manageable, shorter URLs, which are easier to share and remember. Additionally, the application generates a QR code for each shortened URL, allowing for quick access via scanning.
+
+### Requirements
+
+- **PHP 8.2**: The application requires PHP 8.2 to run.
+- **Composer**: A dependency manager for PHP, used to install required packages.
+- **Laravel 9.x**: A modern PHP framework used for developing this application.
+- **Database**: A MySQL database is recommended but any database supported by Laravel can be used.
+
+### Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the Repository**:  
+   `git clone https://github.com/yourusername/url-shortener.git`  
+   `cd url-shortener`
+
+2. **Install Dependencies**:  
+   Use Composer to install the project dependencies.  
+   `composer install`
+
+3. **Environment Setup**:
+    - Copy the `.env.example` file to create your `.env` file.  
+      `cp .env.example .env`
+    - Update the `.env` file with your database credentials and other settings:  
+      `DB_CONNECTION=mysql`  
+      `DB_HOST=127.0.0.1`  
+      `DB_PORT=3306`  
+      `DB_DATABASE=your_database_name`  
+      `DB_USERNAME=your_username`  
+      `DB_PASSWORD=your_password`
+
+4. **Generate Application Key**:  
+   `php artisan key:generate`
+
+5. **Run Migrations**:  
+   Migrate the database to set up the necessary tables.  
+   `php artisan migrate`
+
+6. **Serve the Application**:  
+   Start the local development server.  
+   `php artisan serve`
+
+7. **Access the Application**:  
+   Open your browser and go to `http://localhost:8000`.
+
+### Additional Steps
+
+- **Caching**: You can optimize the performance by caching the routes and configuration files.  
+  `php artisan config:cache`  
+  `php artisan route:cache`
+
+- **Storage Link**: If you have any file uploads, make sure to create a symbolic link to the storage.  
+  `php artisan storage:link`
